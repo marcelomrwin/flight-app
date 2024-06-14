@@ -99,6 +99,11 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
             predicates
                     .add(cb.greaterThanOrEqualTo(flight.get("flightDuration"), flightCriteria.getFlightDurationMin()));
         }
+
+        if (flightCriteria.getProviderName() != null) {
+            predicates.add(cb.like(flight.get("providerName"), "%" + flightCriteria.getProviderName() + "%"));
+        }
+
         cq.where(predicates.toArray(new Predicate[0]));
 
         List<Flight> resultList = Collections.emptyList();

@@ -30,6 +30,7 @@ public class FlightDto {
     private Set<CabinDetail> cabinDetails;
     private Set<String> comforts;
     private Set<InflightInfo> inflightInfos;
+    private String providerName;
 
     /**
      * @return the idFlight
@@ -308,7 +309,7 @@ public class FlightDto {
                      LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime,
                      LocalDate backDate, LocalTime backTime, String departureLocation, String arrivalLocation,
                      LocalTime flightDuration, LocalTime connectionDuration, String aircraftType, Set<CabinDetail> cabinDetails,
-                     Set<String> comforts, Set<InflightInfo> inflightInfos) {
+                     Set<String> comforts, Set<InflightInfo> inflightInfos, String providerName) {
         super();
         this.idFlight = idFlight;
         this.companyName = companyName;
@@ -328,6 +329,15 @@ public class FlightDto {
         this.cabinDetails = cabinDetails;
         this.comforts = comforts;
         this.inflightInfos = inflightInfos;
+        this.providerName = providerName;
+    }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 
     /**

@@ -53,4 +53,6 @@ public class Flight {
     private LocalTime connectionDuration;
     @Column(name = "aircraft_type")
     private String aircraftType;
+    @Column(name = "provider_name")
+    private String providerName;
 }

@@ -10,7 +10,7 @@
                 <mat-form-field>
                     <mat-select (selectionChange)="changeLang($event.value)" formControlName="language">
                         <mat-option *ngFor="let lang of langs" [value]="lang">
-                            {{ (lang === "en_US") ? ('lang.english.label' | translate) : (lang === "pt_BR") ? ('lang.portuguese.label' | translate) : (lang === "fr_FR") ? ('lang.french.label' | translate) : lang }}
+                            {{ (lang === "en_US") ? ('lang.english.label' | translate) : (lang === "pt_BR") ? ('lang.portuguese.label' | translate) : ('lang.french.label' | translate) }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

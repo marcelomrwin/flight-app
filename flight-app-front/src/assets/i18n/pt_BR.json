@@ -73,7 +73,8 @@
         "addBook.label": "Adicionar aos favoritos",
         "book.title": "Título",
         "addBook.button": "Adicionar",
-        "cancel.button": "Cancelar"
+        "cancel.button": "Cancelar",
+        "providerName.label": "Nome do provedor"
     },
     "bookmarkList": {
         "header": "Lista de favoritos",
@@ -92,6 +93,7 @@
         "back.button": "Voltar para a lista de resultados",
         "previous.button": "Anterior",
         "next.button": "Próximo",
+        "FIRST": "Primeria Classe",
         "ECONOMYSTANDARD": "Economy Standard",
         "ECONOMYLIGHT": "Economy Light",
         "ECONOMYFLEX": "Economy Flex",

@@ -23,4 +23,5 @@ export class Flight {
     cabinDetails: Set<CabinDetail>;
     comforts: Set<String>;
     inflightInfos: Set<InflightInfo>;
+    providerName: string;
 }

@@ -74,7 +74,8 @@
         "book.title": "Titre",
         "addBook.button": "Ajouter",
         "cancel.button": "Annuler",
-        "synthesisButton.label":"Synthèse"
+        "synthesisButton.label":"Synthèse",
+        "providerName.label": "Nom du fournisseur"
     },
     "bookmarkList": {
         "header": "Liste des favoris",

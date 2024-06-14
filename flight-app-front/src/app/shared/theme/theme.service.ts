@@ -1,8 +1,8 @@
 import { Injectable, Inject } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 import { Theme } from "../models/theme";
-import { isNullOrUndefined } from "util";
 import { Subject } from 'rxjs';
+import {isNullOrUndefined} from "util";
 
 export const defaultTheme = {
   firstColor: '#3f51b5',

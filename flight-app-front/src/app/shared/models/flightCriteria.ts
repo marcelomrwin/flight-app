@@ -27,4 +27,5 @@ export class FlightCriteria {
     aircraftType: string;
     fareMin: number;
     fareMax: number;
+    providerName: string;
 }

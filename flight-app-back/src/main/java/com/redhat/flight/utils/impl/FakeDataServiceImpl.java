@@ -10,8 +10,8 @@ import com.redhat.flight.enumerations.TravelType;
 import com.redhat.flight.models.*;
 import com.redhat.flight.repository.CompanyRepository;
 import com.redhat.flight.repository.FlightRepository;
-import com.redhat.flight.repository.FlightRepositoryCustom;
 import com.redhat.flight.repository.UserRepository;
+import com.redhat.flight.service.FlightProviderService;
 import com.redhat.flight.service.FlightService;
 import com.redhat.flight.utils.FakeDataService;
 import jakarta.transaction.Transactional;
@@ -23,10 +23,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -48,6 +45,9 @@ public class FakeDataServiceImpl implements FakeDataService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FlightProviderService flightProviderService;
 
     private static final List<String> titles = List.of("air-journal_TAP-Portugal-A330-900", "A380", "A330_200_1", "Business Class dining", "Onboard connectivity", "Headsets", "Inflight services", "Economy seat", "Business Class", "Economy Class dining", "Our Economy Class", "turista_entretenimiento", "Meal service equipment", "Air France Play app", "Unwind with fellow globalistas", "Entertainment", "Onboard Wi-Fi", "air-journal_TAP-Portugal-A330-200", "Air filtration systems", "Tailored exclusively for you", "The perfect temptation", "Your private sanctuary", "In-flight services", "Comfortable and hygienic cabin environment", "Linen and blankets", "Business seat", "Fine wine to complement your meal", "Qsuite - First in Business", "entertainment-tap", "tap confort", "ORYX ONE PLAY Wireless streaming on board", "First Class", "Economy Class", "First Class dining", "tap-air-portugal-crew", "ice TV live");
 
@@ -87,16 +87,6 @@ public class FakeDataServiceImpl implements FakeDataService {
         return 100 + (3000 - 100) * random.nextDouble(); // Fare between 100 and 3000
     }
 
-    public static Bookmark generateBookmark(CompanyName companyName, UserDao userDao) {
-        Bookmark bookmark = new Bookmark();
-        bookmark.setTitle(faker.book().title());
-        bookmark.setAddingDate(LocalDate.now().minusDays(faker.number().numberBetween(1, 30)));
-        bookmark.setNbFlights(faker.number().numberBetween(1, 10));
-        bookmark.setFlightCriteria(generateFlightCriteria(companyName));
-        bookmark.setUser(userDao);
-        return bookmark;
-    }
-
     public static CabinDetail generateCabinDetail() {
         CabinDetail cabinDetail = new CabinDetail();
         cabinDetail.setCabinClass(CabinClass.values()[faker.random().nextInt(CabinClass.values().length)]);
@@ -118,9 +108,10 @@ public class FakeDataServiceImpl implements FakeDataService {
         return company;
     }
 
-    public static Flight generateFlight(Company company) {
+    public static Flight generateFlight(Company company, FlightProvider provider) {
         Flight flight = new Flight();
         flight.setCompany(company);
+        flight.setProviderName(provider.getProviderName());
         flight.setFlightType(FlightType.values()[faker.random().nextInt(FlightType.values().length)]);
         flight.setTravelType(TravelType.values()[faker.random().nextInt(TravelType.values().length)]);
 
@@ -186,35 +177,6 @@ public class FakeDataServiceImpl implements FakeDataService {
         return flight;
     }
 
-    public static FlightCriteria generateFlightCriteria(CompanyName companyName) {
-        FlightCriteria flightCriteria = new FlightCriteria();
-        flightCriteria.setCompany(companyName);
-        flightCriteria.setFlightType(FlightType.values()[faker.random().nextInt(FlightType.values().length)]);
-        flightCriteria.setTravelType(TravelType.values()[faker.random().nextInt(TravelType.values().length)]);
-        flightCriteria.setDepartureLocation(faker.address().city());
-        flightCriteria.setArrivalLocation(faker.address().city());
-        flightCriteria.setFareMin(faker.number().randomDouble(2, 50, 500));
-        flightCriteria.setFareMax(faker.number().randomDouble(2, 500, 1000));
-        flightCriteria.setFlightDurationMin(LocalTime.of(faker.number().numberBetween(0, 5), faker.number().numberBetween(0, 59)));
-        flightCriteria.setFlightDurationMax(LocalTime.of(faker.number().numberBetween(5, 10), faker.number().numberBetween(0, 59)));
-        flightCriteria.setAircraftType(faker.aviation().aircraft());
-        flightCriteria.setDepartureDateMin(LocalDate.now().plusDays(faker.number().numberBetween(1, 10)));
-        flightCriteria.setArrivalDateMin(flightCriteria.getDepartureDateMin().plusDays(faker.number().numberBetween(1, 10)));
-        flightCriteria.setBackDateMin(flightCriteria.getArrivalDateMin().plusDays(faker.number().numberBetween(1, 10)));
-        flightCriteria.setDepartureTimeMin(LocalTime.now().plusHours(faker.number().numberBetween(1, 5)));
-        flightCriteria.setArrivalTimeMin(flightCriteria.getDepartureTimeMin().plusHours(faker.number().numberBetween(1, 5)));
-        flightCriteria.setBackTimeMin(flightCriteria.getArrivalTimeMin().plusHours(faker.number().numberBetween(1, 5)));
-        flightCriteria.setDepartureDateMax(flightCriteria.getDepartureDateMin().plusDays(faker.number().numberBetween(10, 20)));
-        flightCriteria.setArrivalDateMax(flightCriteria.getArrivalDateMin().plusDays(faker.number().numberBetween(10, 20)));
-        flightCriteria.setBackDateMax(flightCriteria.getArrivalDateMax().plusDays(faker.number().numberBetween(10, 20)));
-        flightCriteria.setDepartureTimeMax(flightCriteria.getDepartureTimeMin().plusHours(faker.number().numberBetween(5, 10)));
-        flightCriteria.setArrivalTimeMax(flightCriteria.getArrivalTimeMin().plusHours(faker.number().numberBetween(5, 10)));
-        flightCriteria.setBackTimeMax(flightCriteria.getBackTimeMin().plusHours(faker.number().numberBetween(5, 10)));
-        flightCriteria.setConnectionDurationMin(LocalTime.of(faker.number().numberBetween(0, 1), faker.number().numberBetween(0, 59)));
-        flightCriteria.setConnectionDurationMax(LocalTime.of(faker.number().numberBetween(1, 3), faker.number().numberBetween(0, 59)));
-        return flightCriteria;
-    }
-
     public static InflightInfo generateInflightInfo() {
         InflightInfo inflightInfo = new InflightInfo();
         int titleIndex = faker.number().numberBetween(0, titles.size());
@@ -233,10 +195,11 @@ public class FakeDataServiceImpl implements FakeDataService {
         return loginRequest;
     }
 
-    private static Set<Flight> generateFlights(Company company) {
+    private static Set<Flight> generateFlights(Company company, List<FlightProvider> flightProviders) {
         Set<Flight> flights = new HashSet<>();
         for (int i = 0; i < faker.number().numberBetween(1, 5); i++) {
-            flights.add(generateFlight(company));
+            FlightProvider provider = flightProviders.get(faker.number().numberBetween(0, flightProviders.size()));
+            flights.add(generateFlight(company,provider));
         }
         return flights;
     }
@@ -266,14 +229,45 @@ public class FakeDataServiceImpl implements FakeDataService {
         return user;
     }
 
+    public static FlightProvider generateFlightProvider() {
+        FlightProvider flightProvider = new FlightProvider();
+        flightProvider.setProviderName(faker.app().name());
+        flightProvider.setProviderQueues(generateProviderQueues());
+        return flightProvider;
+    }
+
+    public static List<ProviderQueue> generateProviderQueues() {
+        List<ProviderQueue> providerQueueList = new ArrayList<>();
+        for (int i = 0; i < faker.number().numberBetween(1, 3); i++) {
+            providerQueueList.add(generateProviderQueue());
+        }
+        return providerQueueList;
+    }
+
+    public static ProviderQueue generateProviderQueue() {
+        ProviderQueue providerQueue = new ProviderQueue();
+        providerQueue.setQueueDescription(faker.chuckNorris().fact());
+        providerQueue.setQueueName(faker.funnyName().name().toUpperCase().replace(" ", "_"));
+        providerQueue.setSubscriptionEndpoint(faker.internet().url());
+        return providerQueue;
+    }
+
     @Override
     public void generateFakeData() {
+        List<FlightProvider> flightProviders = new ArrayList<>();
+        //Flight providers
+        for (int i = 0; i < faker.number().numberBetween(1, 5); i++) {
+            FlightProvider flightProvider = generateFlightProvider();
+            flightProviders.add(flightProviderService.addFlightProvider(flightProvider));
+        }
+
+        //Companies and Flights
         List<Company> companies = List.of(generateCompany(CompanyName.TAP), generateCompany(CompanyName.AIRFRANCE), generateCompany(CompanyName.EMIRATES), generateCompany(CompanyName.IBERIA), generateCompany(CompanyName.QATARAIRWAYS));
         for (Company company : companies) {
 
             company = companyRepository.saveAndFlush(company);
 
-            Set<Flight> flights = generateFlights(company);
+            Set<Flight> flights = generateFlights(company,flightProviders);
             for (Flight flight : flights) {
                 flight = flightRepository.saveAndFlush(flight);
                 logger.debug(flight.toString());
@@ -283,11 +277,14 @@ public class FakeDataServiceImpl implements FakeDataService {
             companyRepository.save(company);
         }
 
-        UserDto userDto = generateUser("masales");
+        //User
+        UserDto userDto = generateUser("masales"); //FIXME I still find it strange to use DTO for entities, but I don't have time to fix all that now
 
         UserDao userDao = theUserDetailsService.save(userDto);
         userDao.setEnabled(true);
         userRepository.save(userDao);
+
+
     }
 
     @Override
@@ -298,7 +295,9 @@ public class FakeDataServiceImpl implements FakeDataService {
             company.setFlights(null);
             companyRepository.save(company);
 
-            Set<Flight> flights = generateFlights(company);
+            List<FlightProvider> flightProviders = flightProviderService.getAllFlightProviders();
+
+            Set<Flight> flights = generateFlights(company, flightProviders);
             for (Flight flight : flights) {
                 flight = flightRepository.saveAndFlush(flight);
             }

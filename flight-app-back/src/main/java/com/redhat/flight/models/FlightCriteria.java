@@ -34,7 +34,7 @@ public class FlightCriteria {
     private LocalTime backTimeMax;
     private LocalTime connectionDurationMin;
     private LocalTime connectionDurationMax;
-
+private String providerName;
 
     /**
      * @return the company
@@ -365,6 +365,14 @@ public class FlightCriteria {
         return connectionDurationMax;
     }
 
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
     /**
      * @param connectionDurationMax the connectionDurationMax to set
      */
@@ -405,7 +413,7 @@ public class FlightCriteria {
                           LocalTime arrivalTimeMin, LocalTime backTimeMin, LocalDate departureDateMax,
                           LocalDate arrivalDateMax, LocalDate backDateMax, LocalTime departureTimeMax,
                           LocalTime arrivalTimeMax, LocalTime backTimeMax, LocalTime connectionDurationMin,
-                          LocalTime connectionDurationMax) {
+                          LocalTime connectionDurationMax,String providerName) {
         super();
         this.company = company;
         this.flightType = flightType;
@@ -431,6 +439,7 @@ public class FlightCriteria {
         this.backTimeMax = backTimeMax;
         this.connectionDurationMin = connectionDurationMin;
         this.connectionDurationMax = connectionDurationMax;
+        this.providerName = providerName;
     }
 
     public FlightCriteria() {

@@ -1,7 +1,7 @@
 <div id="flightsInfo">
     <div id="mainBanner">
         <h3>
-            {{'DetailsPage.flight.header' | translate }}
+            {{ 'DetailsPage.flight.header' | translate }}
         </h3>
         <p>
             <span class="expand" (click)="changeVisibility()">
@@ -13,57 +13,77 @@
     <div class="t-data-grid" *ngIf="!IsHidden" [@orientAnimation]="orientation">
         <table class="t-data-grid">
             <tr>
-                <th>{{'flightsList.flightNb.label' | translate }}</th>
-                <th>{{'flightsList.company.label' | translate }}</th>
-                <th>{{'flightsList.flight.label' | translate }}</th>
-                <th>{{'flightsList.trip.label' | translate }}</th>
+                <th>{{ 'flightsList.flightNb.label' | translate }}</th>
+                <th>{{ 'flightsList.company.label' | translate }}</th>
+                <th>{{ 'flightsList.flight.label' | translate }}</th>
+                <th>{{ 'flightsList.trip.label' | translate }}</th>
             </tr>
             <tr>
                 <td>
-                    {{flightInfos.idFlight}}
+                    {{ flightInfos.idFlight }}
                 </td>
-                <td>{{ "searchFlightForm.company."+flightInfos.companyName | translate | replaceNullValue}}</td>
+                <td>{{ "searchFlightForm.company." + flightInfos.companyName | translate | replaceNullValue }}</td>
                 <td>
-                    {{ "searchFlightForm.flightType."+flightInfos.flightType | translate | replaceNullValue}} 
+                    {{ "searchFlightForm.flightType." + flightInfos.flightType | translate | replaceNullValue }}
                 </td>
-                <td>{{ "searchFlightForm.trip."+flightInfos.travelType | translate | replaceNullValue}}</td>
+                <td>{{ "searchFlightForm.trip." + flightInfos.travelType | translate | replaceNullValue }}</td>
             </tr>
             <tr>
-                <th>{{'flightsList.deparDate.label' | translate }}</th>
-                <th>{{'flightsList.arrivDate.label' | translate }}</th>
-                <th>{{'flightsList.backDate.label' | translate }}</th>
-                <th>{{'flightsList.departingFrom.label' | translate }}</th>
+                <th>{{ 'flightsList.deparDate.label' | translate }}</th>
+                <th>{{ 'flightsList.arrivDate.label' | translate }}</th>
+                <th>{{ 'flightsList.backDate.label' | translate }}</th>
+                <th>{{ 'flightsList.departingFrom.label' | translate }}</th>
             </tr>
             <tr>
                 <td>
-                    {{flightInfos.departureDate | replaceNullValue | i18nDate}}<br />{{flightInfos.departureTime | replaceNullValue}}
+                    {{ flightInfos.departureDate | replaceNullValue | i18nDate }}
+                    <br/>{{ flightInfos.departureTime | replaceNullValue }}
                 </td>
                 <td>
-                    {{flightInfos.arrivalDate | replaceNullValue | i18nDate}}<br />{{flightInfos.arrivalTime | replaceNullValue}}
+                    {{ flightInfos.arrivalDate | replaceNullValue | i18nDate }}
+                    <br/>{{ flightInfos.arrivalTime | replaceNullValue }}
                 </td>
                 <td>
-                    {{flightInfos.backDate | replaceNullValue | i18nDate}}<br />{{flightInfos.backTime | replaceNullValue}}
+                    {{ flightInfos.backDate ? (flightInfos.backDate | i18nDate) : '' }}
+                    <br/>{{ flightInfos.backTime ? flightInfos.backTime : '' }}
                 </td>
-                <td>{{flightInfos.departureLocation}}</td>
+                <td>{{ flightInfos.departureLocation }}</td>
             </tr>
 
             <tr>
-                <th>{{'flightsList.flightDuration.label' | translate }}</th>
-                <th>{{'flightsList.connection.label' | translate }}</th>
-                <th>{{'flightsList.aircraft.label' | translate }}</th>
-                <th>{{'flightsList.arrivingAt.label' | translate }}</th>
+                <th>{{ 'flightsList.flightDuration.label' | translate }}</th>
+                <th>{{ 'flightsList.connection.label' | translate }}</th>
+                <th>{{ 'flightsList.aircraft.label' | translate }}</th>
+                <th>{{ 'flightsList.arrivingAt.label' | translate }}</th>
             </tr>
             <tr>
                 <td>
-                    {{flightInfos.flightDuration | replaceNullValue}}
+                    {{ flightInfos.flightDuration | replaceNullValue }}
                 </td>
                 <td>
-                    {{flightInfos.connectionDuration | replaceNullValue}}
+                    {{ flightInfos.connectionDuration | replaceNullValue }}
                 </td>
                 <td>
-                    {{flightInfos.aircraftType | replaceNullValue}}
+                    {{ flightInfos.aircraftType | replaceNullValue }}
                 </td>
-                <td>{{flightInfos.arrivalLocation | replaceNullValue}}</td>
+                <td>{{ flightInfos.arrivalLocation | replaceNullValue }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'flightsList.providerName.label' | translate }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    {{ flightInfos.providerName | replaceNullValue }}
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
             </tr>
         </table>
     </div>

@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
                                 .requestMatchers(FLIGHT_API + "authenticate", FLIGHT_API + "register", FLIGHT_API + "forgotPassword",
-                                        FLIGHT_API + "reset", FLIGHT_API + "registration-confirm").permitAll()
+                                        FLIGHT_API + "reset", FLIGHT_API + "registration-confirm", "/favicon.ico").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                                 .anyRequest().permitAll()
