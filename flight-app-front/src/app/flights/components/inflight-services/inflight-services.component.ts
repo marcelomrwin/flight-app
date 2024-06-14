@@ -11,7 +11,7 @@ import { trigger, style, animate, state } from '@angular/animations';
     trigger("show", [
      state('true',style({'z-index': '99 !important'
     })),
-     state('false',style({zoom: '0%'}))
+     state('false',style({}))//zoom: '0%'
     ]),
   ]  
 })

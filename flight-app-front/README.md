@@ -11,6 +11,6 @@ npm install --save jasmine-core@^3.8
 ## To deploy in Spring boot back
 ```shell
 ng build
-rm -rf /Users/masales/Development/projects/flight-app-back/src/main/resources/static/*
-cp -r dist/flight-app-front/* /Users/masales/Development/projects/flight-app-back/src/main/resources/static/
+rm -rf /Users/masales/Development/projects/flight-app/flight-app-back/src/main/resources/static/*
+cp -r dist/flight-app-front/* /Users/masales/Development/projects/flight-app/flight-app-back/src/main/resources/static/
 ```

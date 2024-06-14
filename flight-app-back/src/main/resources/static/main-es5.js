@@ -7869,9 +7869,8 @@ function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Can
       data: {
         animation: [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])("show", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('true', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
           'z-index': '99 !important'
-        })), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
-          zoom: '0%'
-        }))])]
+        })), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({})) //zoom: '0%'
+        ])]
       }
     });
     /*@__PURE__*/
@@ -7885,9 +7884,8 @@ function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Can
           styleUrls: ['./inflight-services.component.css'],
           animations: [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])("show", [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('true', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
             'z-index': '99 !important'
-          })), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({
-            zoom: '0%'
-          }))])]
+          })), Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({})) //zoom: '0%'
+          ])]
         }]
       }], function () {
         return [{
@@ -16615,10 +16613,11 @@ function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Can
     var CompanyName;
 
     (function (CompanyName) {
-      CompanyName[CompanyName["AIRFRANCE"] = 0] = "AIRFRANCE";
-      CompanyName[CompanyName["AIRARABIA"] = 1] = "AIRARABIA";
+      CompanyName[CompanyName["TAP"] = 0] = "TAP";
+      CompanyName[CompanyName["AIRFRANCE"] = 1] = "AIRFRANCE";
       CompanyName[CompanyName["EMIRATES"] = 2] = "EMIRATES";
-      CompanyName[CompanyName["QATARAIRWAYS"] = 3] = "QATARAIRWAYS";
+      CompanyName[CompanyName["IBERIA"] = 3] = "IBERIA";
+      CompanyName[CompanyName["QATARAIRWAYS"] = 4] = "QATARAIRWAYS";
     })(CompanyName || (CompanyName = {}));
     /***/
 
@@ -17139,7 +17138,7 @@ function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Can
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /Users/masales/Development/projects/flight-app-front/src/main.ts */
+    /*! /Users/masales/Development/projects/flight-app/flight-app-front/src/main.ts */
     "./src/main.ts");
     /***/
   }

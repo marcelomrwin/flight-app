@@ -1,8 +1,11 @@
-HELP.md
+README.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+### LOG FILES ###
+flight-app.log
 
 ### STS ###
 .apt_generated

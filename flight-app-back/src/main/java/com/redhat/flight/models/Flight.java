@@ -3,10 +3,7 @@ package com.redhat.flight.models;
 import com.redhat.flight.enumerations.FlightType;
 import com.redhat.flight.enumerations.TravelType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +13,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

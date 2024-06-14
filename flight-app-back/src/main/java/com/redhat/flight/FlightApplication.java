@@ -1,12 +1,17 @@
 package com.redhat.flight;
 
+import com.redhat.flight.utils.FakeDataService;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -14,8 +19,6 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.request.RequestContextListener;
 
 import java.util.Properties;
@@ -27,6 +30,9 @@ public class FlightApplication {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    FakeDataService fakeDataService;
 
     @Bean
     public ModelMapper modelMapper() {
@@ -75,10 +81,15 @@ public class FlightApplication {
         return mailSender;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+
+    @EventListener(ContextRefreshedEvent.class)
+    public void onApplicationStartup(ContextRefreshedEvent event) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("Starting up...Loading fake data");
+        fakeDataService.generateFakeData();
+        logger.info("Fake data loaded");
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(FlightApplication.class, args);

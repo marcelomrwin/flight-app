@@ -6,7 +6,9 @@
             "AIRFRANCE": "Air France",
             "AIRARABIA": "Air Arabia",
             "EMIRATES": "Emirates",
-            "QATARAIRWAYS": "Qatar Airways"
+            "QATARAIRWAYS": "Qatar Airways",
+            "TAP": "TAP",
+            "IBERIA": "Iberia"
         },
         "trip": {
             "ONEWAYTICKET": "Aller simple",

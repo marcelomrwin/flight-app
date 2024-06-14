@@ -4132,7 +4132,7 @@ InflightServicesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
             Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])("show", [
                 Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('true', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ 'z-index': '99 !important'
                 })),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ zoom: '0%' }))
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({})) //zoom: '0%'
             ]),
         ] } });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](InflightServicesComponent, [{
@@ -4145,7 +4145,7 @@ InflightServicesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])("show", [
                         Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('true', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ 'z-index': '99 !important'
                         })),
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ zoom: '0%' }))
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["state"])('false', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({})) //zoom: '0%'
                     ]),
                 ]
             }]
@@ -8815,10 +8815,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CompanyName", function() { return CompanyName; });
 var CompanyName;
 (function (CompanyName) {
-    CompanyName[CompanyName["AIRFRANCE"] = 0] = "AIRFRANCE";
-    CompanyName[CompanyName["AIRARABIA"] = 1] = "AIRARABIA";
+    CompanyName[CompanyName["TAP"] = 0] = "TAP";
+    CompanyName[CompanyName["AIRFRANCE"] = 1] = "AIRFRANCE";
     CompanyName[CompanyName["EMIRATES"] = 2] = "EMIRATES";
-    CompanyName[CompanyName["QATARAIRWAYS"] = 3] = "QATARAIRWAYS";
+    CompanyName[CompanyName["IBERIA"] = 3] = "IBERIA";
+    CompanyName[CompanyName["QATARAIRWAYS"] = 4] = "QATARAIRWAYS";
 })(CompanyName || (CompanyName = {}));
 
 
@@ -9114,7 +9115,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/masales/Development/projects/flight-app-front/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/masales/Development/projects/flight-app/flight-app-front/src/main.ts */"./src/main.ts");
 
 
 /***/ })
