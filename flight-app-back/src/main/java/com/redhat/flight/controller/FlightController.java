@@ -3,13 +3,12 @@ package com.redhat.flight.controller;
 import com.redhat.flight.config.EmailService;
 import com.redhat.flight.config.JwtUtil;
 import com.redhat.flight.config.TheUserDetailsService;
-import com.redhat.flight.dto.FlightDto;
-import com.redhat.flight.dto.SyntheseCompanyDto;
-import com.redhat.flight.dto.SyntheseTripDto;
+import com.redhat.flight.dto.*;
 import com.redhat.flight.models.*;
 import com.redhat.flight.registration.OnRegistrationCompleteEvent;
 import com.redhat.flight.service.FlightService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +24,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import com.redhat.flight.dto.UserDto;
-import com.redhat.flight.dto.PasswordDto;
+
 import java.security.Principal;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
-import jakarta.validation.Valid;
 
 @CrossOrigin
 @RestController
 @RequestMapping("flight-webservices/api/v1.0/flights")
 public class FlightController {
     @Autowired
-    private  FlightService flightService;
+    private FlightService flightService;
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
@@ -120,7 +114,10 @@ public class FlightController {
 
     @GetMapping("/bookmarks")
     public ResponseEntity<List<Bookmark>> getAllBookmarks(Principal principal) {
-        List<Bookmark> bookmarks = flightService.getBookmarkList(principal.getName());
+        List<Bookmark> bookmarks = Collections.emptyList();
+        if (principal != null && Objects.nonNull(principal.getName())) {
+            bookmarks = flightService.getBookmarkList(principal.getName());
+        }
         return new ResponseEntity<List<Bookmark>>(bookmarks, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -236,6 +233,7 @@ public class FlightController {
      * emailService.sendEmail(email); return new ResponseEntity<Email>(email,new
      * HttpHeaders(), HttpStatus.OK); }
      */
+
     /**
      * @param modelMapper
      */

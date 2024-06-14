@@ -13,7 +13,7 @@ export class ExceptionComponent implements OnInit {
   langs: Array<string>;
   language: FormGroup;
   constructor(private readonly translateService: TranslateService, private readonly sharedService: SharedService, private fb: FormBuilder, private readonly router: Router) {
-    translateService.addLangs(['en_US', 'fr_FR']);
+    translateService.addLangs(['en_US', 'fr_FR', 'pt_BR']);
    }
 
   ngOnInit(): void {
@@ -33,6 +33,9 @@ export class ExceptionComponent implements OnInit {
     }
     else if (language === 'fr_FR') {
       this.sharedService.selectedLanguage.next('fr');
+    }
+    else if (language === 'pt_BR') {
+      this.sharedService.selectedLanguage.next('pt');
     }
   }
 }

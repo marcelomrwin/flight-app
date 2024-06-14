@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 
+import com.redhat.flight.models.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.slf4j.Logger;
@@ -16,10 +17,6 @@ import com.redhat.flight.dto.SyntheseCompanyDto;
 import com.redhat.flight.dto.SyntheseTripDto;
 import com.redhat.flight.enumerations.CompanyName;
 import com.redhat.flight.enumerations.TravelType;
-import com.redhat.flight.models.Bookmark;
-import com.redhat.flight.models.Flight;
-import com.redhat.flight.models.FlightCriteria;
-import com.redhat.flight.models.SynthesisCriteria;
 import com.redhat.flight.repository.FlightRepositoryCustom;
 
 @Repository
@@ -137,10 +134,10 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<SyntheseCompanyDto> cq = cb.createQuery(SyntheseCompanyDto.class);
         Root<Flight> flight = cq.from(Flight.class);
-        Expression<CompanyName> groupByExp = flight.get("company").get("companyName").as(CompanyName.class);
-        Expression<Long> countExp = cb.count(groupByExp);
-        cq.multiselect(groupByExp, countExp);
-        cq.groupBy(groupByExp);
+
+        Join<Flight, Company> company = flight.join("company");
+        cq.multiselect(company.get("companyName"), cb.count(company.get("companyName")));
+
         List<Predicate> predicates = new ArrayList<>();
         if (synthesisCriteria.getDepartureDateMax() != null) {
             predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate"), synthesisCriteria.getDepartureDateMax()));
@@ -149,7 +146,10 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
             predicates
                     .add(cb.greaterThanOrEqualTo(flight.get("departureDate"), synthesisCriteria.getDepartureDateMin()));
         }
+
         cq.where(predicates.toArray(new Predicate[0]));
+        cq.groupBy(company.get("companyName"));
+
         return entityManager.createQuery(cq).getResultList();
     }
 
@@ -158,10 +158,9 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<SyntheseTripDto> cq = cb.createQuery(SyntheseTripDto.class);
         Root<Flight> flight = cq.from(Flight.class);
-        Expression<TravelType> groupByExp = flight.get("travelType").as(TravelType.class);
-        Expression<Long> countExp = cb.count(groupByExp);
-        cq.multiselect(groupByExp, countExp);
-        cq.groupBy(groupByExp);
+
+        cq.multiselect(flight.get("travelType"), cb.count(flight.get("travelType")));
+
         List<Predicate> predicates = new ArrayList<>();
         if (synthesisCriteria.getDepartureDateMax() != null) {
             predicates.add(cb.lessThanOrEqualTo(flight.get("departureDate"), synthesisCriteria.getDepartureDateMax()));
@@ -171,7 +170,10 @@ public class FlightRepositoryImpl implements FlightRepositoryCustom {
                     .add(cb.greaterThanOrEqualTo(flight.get("departureDate"), synthesisCriteria.getDepartureDateMin()));
         }
         cq.where(predicates.toArray(new Predicate[0]));
+        cq.groupBy(flight.get("travelType"));
+
         return entityManager.createQuery(cq).getResultList();
+
     }
 
     @Override

@@ -128,11 +128,48 @@ public class FakeDataServiceImpl implements FakeDataService {
         flight.setArrivalLocation(faker.address().city());
 
         flight.setDepartureDate(LocalDate.now().plusDays(faker.number().numberBetween(1, 30)));
-        flight.setDepartureTime(LocalTime.now().plusHours(faker.number().numberBetween(1, 10)));
+
+        {
+            long longTime = -1;
+            do {
+                LocalTime localTime = LocalTime.now().plusHours(faker.number().numberBetween(1, 10));
+                Time sqlTime = Time.valueOf(localTime);
+                longTime = sqlTime.getTime();
+                flight.setDepartureTime(localTime);
+            } while (longTime < 0);
+        }
+
         flight.setArrivalDate(flight.getDepartureDate().plusDays(faker.number().numberBetween(1, 10)));
-        flight.setArrivalTime(flight.getDepartureTime().plusHours(faker.number().numberBetween(1, 10)));
-        flight.setConnectionDuration(LocalTime.of(faker.number().numberBetween(0, 5), faker.number().numberBetween(0, 59)));
-        flight.setFlightDuration(LocalTime.of(faker.number().numberBetween(0, 5), faker.number().numberBetween(0, 59)));
+
+        {
+            long longTime = -1;
+            do {
+                LocalTime localTime = flight.getDepartureTime().plusHours(faker.number().numberBetween(1, 10));
+                Time sqlTime = Time.valueOf(localTime);
+                longTime = sqlTime.getTime();
+                flight.setArrivalTime(localTime);
+            } while (longTime < 0);
+        }
+
+        {
+            long longTime = -1;
+            do {
+                LocalTime localTime = LocalTime.of(faker.number().numberBetween(0, 5), faker.number().numberBetween(0, 59));
+                Time sqlTime = Time.valueOf(localTime);
+                longTime = sqlTime.getTime();
+                flight.setConnectionDuration(localTime);
+            } while (longTime < 0);
+        }
+
+        {
+            long longTime = -1;
+            do {
+                LocalTime localTime = LocalTime.of(faker.number().numberBetween(0, 5), faker.number().numberBetween(0, 59));
+                Time sqlTime = Time.valueOf(localTime);
+                longTime = sqlTime.getTime();
+                flight.setFlightDuration(localTime);
+            } while (longTime < 0);
+        }
 
         if (flight.getTravelType() == TravelType.ROUNDTRIP) {
             flight.setBackDate(flight.getArrivalDate().plusDays(faker.number().numberBetween(1, 10)));
@@ -181,7 +218,7 @@ public class FakeDataServiceImpl implements FakeDataService {
     public static InflightInfo generateInflightInfo() {
         InflightInfo inflightInfo = new InflightInfo();
         int titleIndex = faker.number().numberBetween(0, titles.size());
-        LoggerFactory.getLogger(FakeDataServiceImpl.class).info("titleIndex is {} with value {}", titleIndex, titles.get(titleIndex));
+        logger.debug("titleIndex is {} with value {}", titleIndex, titles.get(titleIndex));
         inflightInfo.setTitle(titles.get(titleIndex));
         String description = faker.lorem().paragraph();
         if (description.length() > 255) description = description.substring(0, 255);
@@ -239,7 +276,7 @@ public class FakeDataServiceImpl implements FakeDataService {
             Set<Flight> flights = generateFlights(company);
             for (Flight flight : flights) {
                 flight = flightRepository.saveAndFlush(flight);
-                logger.warn(flight.toString());
+                logger.debug(flight.toString());
             }
 
             company.setFlights(flights);

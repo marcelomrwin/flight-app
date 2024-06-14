@@ -26,7 +26,7 @@ public class FlightServiceImpl implements FlightService {
     private BookmarkRepository bookmarkRepository;
 
     public List<Flight> searchFlight(FlightCriteria flightCriteria) {
-        // TODO Auto-generated method stub
+
         return flightRepository.searchFlight(flightCriteria);
     }
 
@@ -43,20 +43,20 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight getFlight(Long idFlight) {
-        // TODO Auto-generated method stub
+
         Flight flight = flightRepository.findById(idFlight).orElse(null);
         return flight;
     }
 
     @Override
     public Long getNumberFlights(SynthesisCriteria synthesisCriteria) {
-        // TODO Auto-generated method stub
+
         return flightRepository.getNumberFlights(synthesisCriteria);
     }
 
     @Override
     public List<SyntheseCompanyDto> getSyntheseCompanyFlights(SynthesisCriteria synthesisCriteria) {
-        // TODO Auto-generated method stub
+
         return flightRepository.getSyntheseCompanyFlights(synthesisCriteria);
     }
 
@@ -67,25 +67,25 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Bookmark> getAllBookmarks() {
-        // TODO Auto-generated method stub
+
         return bookmarkRepository.findAll();
     }
 
     @Override
     public Bookmark getBookmark(Long idBookmark) {
-        // TODO Auto-generated method stub
+
         return this.bookmarkRepository.getOne(idBookmark);
     }
 
     @Override
     public List<SyntheseTripDto> getSyntheseTripFlights(SynthesisCriteria synthesisCriteria) {
-        // TODO Auto-generated method stub
+
         return flightRepository.getSyntheseTripFlights(synthesisCriteria);
     }
 
     @Override
     public List<Bookmark> getBookmarkList(String userName) {
-        // TODO Auto-generated method stub
+
         return flightRepository.getBookmarkList(userName);
     }
 

@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class LanguageService {
 
-  private defaultLanguage: string = "fr_FR";
+  private defaultLanguage: string = "en_US";
 
   constructor(private translateService: TranslateService, private http: HttpClient) {
     this.translateService.use(this.getLang());

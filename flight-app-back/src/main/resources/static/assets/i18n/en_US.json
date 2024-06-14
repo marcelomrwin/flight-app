@@ -131,7 +131,8 @@
     "lang": {
         "lang.label": "Language",
         "english.label": "English",
-        "french.label": "French"
+        "french.label": "French",
+        "portuguese.label": "Portuguese"
     },
     "contrast": {
         "high.label": "High contrast",

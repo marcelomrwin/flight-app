@@ -10,7 +10,7 @@
                 <mat-form-field>
                     <mat-select (selectionChange)="changeLang($event.value)" formControlName="language">
                         <mat-option *ngFor="let lang of langs" [value]="lang">
-                            {{ (lang==="fr_FR")?('lang.french.label' | translate):('lang.english.label' | translate) }}
+                            {{ (lang === "en_US") ? ('lang.english.label' | translate) : (lang === "pt_BR") ? ('lang.portuguese.label' | translate) : (lang === "fr_FR") ? ('lang.french.label' | translate) : lang }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -25,7 +25,7 @@
         <mat-card-content>
             The page you are looking for is not found.
             <br><br>
-            <a href='/flights/search'>
+            <a href='/'>
                  Return to home
             </a>
         </mat-card-content>

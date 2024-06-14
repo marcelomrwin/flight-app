@@ -132,7 +132,8 @@
     "lang":{
         "lang.label":"Langue",
         "english.label":"Anglais",
-        "french.label":"Français"
+        "french.label":"Français",
+        "portuguese.label": "Portugais"
     },
     "contrast":{
         "high.label":"Contraste élevé",

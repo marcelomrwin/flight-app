@@ -11,6 +11,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FlightsModule } from './flights/flights.module';
 import { PortalModule } from './portal/portal.module';
 import localeFr from '@angular/common/locales/fr';
+import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { DateAdapter, MatSelectModule, MatIconModule, MatToolbarModule, MatCardModule } from '@angular/material';
 import { LocaleDateAdapter } from './shared/util/dateAdapter/locale-date-adapter';
@@ -24,6 +25,7 @@ import { ExceptionComponent } from './exceptions/exception/exception.component';
 import { ResetPasswordComponent } from './authentification/reset-password/reset-password.component';
 
 registerLocaleData(localeFr);
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -54,7 +56,7 @@ registerLocaleData(localeFr);
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }, { provide: DateAdapter, useClass: LocaleDateAdapter },
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }, { provide: DateAdapter, useClass: LocaleDateAdapter },
   ],
   bootstrap: [AppComponent]
 })

@@ -26,5 +26,6 @@ http -f POST :8081/flight-webservices/api/v1.0/fake
 curl -X POST http://localhost:8081/flight-webservices/api/v1.0/fake
 
 http -f POST :8081/flight-webservices/api/v1.0/flights Content-Type:application/json < src/test/resources/empty-criteria.json
-
+http -f POST :8081/flight-webservices/api/v1.0/flights/syntheseCompanyFlights Content-Type:application/json < src/test/resources/syntheseCompanyFlights.json
+http -f POST :8081/flight-webservices/api/v1.0/flights/syntheseTripFlights Content-Type:application/json < src/test/resources/syntheseTripFlights.json
 ```
