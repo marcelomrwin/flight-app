@@ -490,8 +490,8 @@ module.exports = exported;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/masales/Development/projects/flight-app/flight-app-front/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
-module.exports = __webpack_require__(/*! /Users/masales/Development/projects/flight-app/flight-app-front/src/styles.css */"./src/styles.css");
+__webpack_require__(/*! /app/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+module.exports = __webpack_require__(/*! /app/src/styles.css */"./src/styles.css");
 
 
 /***/ })

@@ -1,0 +1,103 @@
+volumes:
+  mariadb-data: { }
+  activemq-data: { }
+  provider-data: { }
+  hub-data: { }
+  pgadmin-data: {}
+
+services:
+
+  mariadb:
+    image: mariadb:lts-ubi9
+    container_name: mariadb
+    restart: always
+    environment:
+      TZ: Europe/Madrid
+      MYSQL_ROOT_PASSWORD: dbpassword
+      MYSQL_DATABASE: flightsdb
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpassword
+    volumes:
+      - mariadb-data:/var/lib/mysql:rw
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 5s
+      timeout: 3s
+      retries: 2
+      start_period: 0s
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - 9080:80
+    environment:
+      TZ: Europe/Madrid
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: dbpassword
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+
+  activemq:
+    image: apache/activemq-artemis:latest-alpine
+    container_name: activemq
+    ports:
+      - 61616:61616
+      - 8161:8161
+    environment:
+      TZ: Europe/Madrid
+      ARTEMIS_USER: artemis
+      ARTEMIS_PASSWORD: artemis
+      ANONYMOUS_LOGIN: false
+    volumes:
+      - activemq-data:/var/lib/artemis-instance
+    restart: unless-stopped
+
+  postgres-provider:
+    image: docker.io/library/postgres:16
+    container_name: provider-postgres
+    hostname: provider-postgres
+    restart: unless-stopped
+    ports:
+      - 5433:5432
+    volumes:
+      - provider-data:/var/lib/postgresql/data
+    environment:
+      TZ: Europe/Madrid
+      POSTGRES_DB: provider
+      POSTGRES_USER: provider
+      POSTGRES_PASSWORD: provider
+
+  postgres-hub:
+    image: docker.io/library/postgres:16
+    container_name: postgres-hub
+    hostname: postgres-hub
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - hub-data:/var/lib/postgresql/data
+    environment:
+      TZ: Europe/Madrid
+      POSTGRES_DB: hub
+      POSTGRES_USER: hub
+      POSTGRES_PASSWORD: hub
+
+  pgadmin4:
+    image: dpage/pgadmin4:8
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - 9980:80
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    environment:
+      TZ: Europe/Madrid
+      PGADMIN_DEFAULT_PASSWORD: P@ssw0rd1!
+      PGADMIN_DEFAULT_EMAIL: masales@redhat.com
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+      GUNICORN_ACCESS_LOGFILE: /dev/null

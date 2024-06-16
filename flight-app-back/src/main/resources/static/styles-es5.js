@@ -527,11 +527,11 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! /Users/masales/Development/projects/flight-app/flight-app-front/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */
+    /*! /app/node_modules/@angular/material/prebuilt-themes/indigo-pink.css */
     "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
 
     module.exports = __webpack_require__(
-    /*! /Users/masales/Development/projects/flight-app/flight-app-front/src/styles.css */
+    /*! /app/src/styles.css */
     "./src/styles.css");
     /***/
   }
